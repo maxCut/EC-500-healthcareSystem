@@ -11,5 +11,9 @@ Errors
 currently encyption does not work
 
 ----
-use
+Use
 Simply run python3 gui.py
+
+to get data you should run python -i  datastore.py to start database program
+then run getData(P_ID), to be listed with a series of data corresponding to the 
+current P_ID.
