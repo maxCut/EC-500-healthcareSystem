@@ -1,10 +1,10 @@
 from tkinter import *
 from data import data_pull
-from error_handler.py import Error_Handler
-from error_handler.py import check_hr 
-from error_handler.py import check_bo
-from error_handler.py import check_bp
-from alert_system.py import page_doctor
+from error_handler import Error_Handler
+from error_handler import check_hr 
+from error_handler import check_bo
+from error_handler import check_bp
+from alert_system  import page_doctor
 import time
 import random
 
@@ -23,7 +23,7 @@ min_int = 5
 
 
 # current p_id
-p_id = random(0,10000)
+p_id = random.randint(0,10000)
 
 # Run the UI
 def runUI():
