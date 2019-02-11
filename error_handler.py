@@ -25,7 +25,7 @@ def check_hr(data):
 
 def check_bp(data):
     bp = data.get("blood_pressure1")
-    if bp> 140 or bp< 120 
+    if bp> 140 or bp< 120:
         return True
 
 def check_bo(data):
