@@ -5,6 +5,7 @@ from error_handler import check_hr
 from error_handler import check_bo
 from error_handler import check_bp
 from alert_system  import page_doctor
+from datastore import insertData 
 import time
 import random
 
@@ -85,6 +86,7 @@ def getDataLoop(hr, bp, bo):
         page_doctor(data_obj,0x03,check_bo(data_obj))
 
     #store the data
+    insertData(p_id,data_obj)
 
     
 
