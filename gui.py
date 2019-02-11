@@ -1,13 +1,29 @@
 from tkinter import *
 from data import data_pull
+from error_handler.py import Error_Handler
+from error_handler.py import check_hr 
+from error_handler.py import check_bo
+from error_handler.py import check_bp
+from alert_system.py import page_doctor
 import time
+import random
 
 # Time intervals for retrieving data
 hr_interval = 5
 bp_interval = 5
 bo_interval = 5
+TimeCount = 0
+
+# Current vital statuses
+heartRate = 0
+bloodPressure = 0
+bloodOxygen = 0
 
 min_int = 5
+
+
+# current p_id
+p_id = random(0,10000)
 
 # Run the UI
 def runUI():
@@ -18,7 +34,7 @@ def runUI():
     bp = IntVar()
     bo = IntVar()
 
-    window.title("EC500 Health Monitor System")
+    window.title("Patient : " + str(p_id))
     
     label1 = Label(window, text='Heart Rate')
     label1.grid(row=0, column=0)
@@ -49,11 +65,29 @@ def runUI():
 # Grab data every n seconds
 # Where n is minimum time interval given
 def getDataLoop(hr, bp, bo):
+    global TimeCount
     min_int = min(hr_interval, bp_interval, bo_interval)
     data_obj = data_pull()
-    hr.set(data_obj.get("heart_rate"))
-    bp.set(data_obj.get("blood_pressure1"))
-    bo.set(data_obj.get("blood_oxygen"))
+
+    
+    if(TimeCount%hr_interval==0):
+        hr.set(data_obj.get("heart_rate"))
+    if(TimeCount%bp_interval==0):
+        bp.set(data_obj.get("blood_pressure1"))
+    if(TimeCount%bo_interval==0):
+        bo.set(data_obj.get("blood_oxygen"))
+
+
+    #check if we need to page doc
+    if(Error_Handler(data_obj)):
+        page_doctor(data_obj,0x01,check_hr(data_obj))
+        page_doctor(data_obj,0x02,check_bp(data_obj))
+        page_doctor(data_obj,0x03,check_bo(data_obj))
+
+    #store the data
+
+    
+
 
 #def change_interval(time, type):
 
